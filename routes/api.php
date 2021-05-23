@@ -23,3 +23,5 @@ Route::middleware('auth:sanctum')->post('auth/logout', [ApiTokenController::clas
  Route::middleware('auth:sanctum')->get('posts', [PostController::class, 'index']);
  Route::middleware('auth:sanctum')->get('posts/{id}', [PostController::class, 'show']);
  Route::middleware('auth:sanctum')->post('posts/create', [PostController::class, 'create']);
+ Route::middleware('auth:sanctum')->post('posts/update/{id}', [PostController::class, 'update']);
+ Route::middleware('auth:sanctum')->get('posts/delete/{id}', [PostController::class, 'delete']);
