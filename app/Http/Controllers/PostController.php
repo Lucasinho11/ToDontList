@@ -22,11 +22,17 @@ class PostController extends Controller
     {
         
         $post = Posts::find($id);
+        if(!$post){
+            return response()->json([
+                "message"=> "post innexistant"
+            ], 403);
+        }
         if($request->user()->id != $post->user_id){
             return response()->json([
                 "message"=> "Accès interdit!"
             ], 403);
         }
+        
         return response()->json([
             $post
         ], 200);
