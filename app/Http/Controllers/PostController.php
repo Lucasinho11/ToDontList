@@ -12,7 +12,7 @@ class PostController extends Controller
     public function index(Request $request)
     {
         
-        $posts = Posts::where('user_id', $request->user()->id)->get();
+        $posts = Posts::where('user_id', $request->user()->id)->orderBy('id', 'desc')->get();
         return response()->json([
             $posts
         ], 200);
