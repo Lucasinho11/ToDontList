@@ -20,9 +20,9 @@ class ApiTokenController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
+            return response()->json([
+                "error" => "he provided credentials are incorrect."
+            ], 401);
         }
 
         $user->tokens()->where('tokenable_id',  $user->id)->delete();

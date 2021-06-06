@@ -15,22 +15,19 @@ class PostController extends Controller
         $posts = Posts::where('user_id', $request->user()->id)->orderBy('id', 'desc')->get();
         return response()->json([
             $posts
-        ], 200);
+        ], 201);
         
     }
     public function show(Request $request, $id)
     {
         
         $post = Posts::find($id);
-        if(!$post){
-            return response()->json([
-                "message"=> "post innexistant"
-            ], 403);
+        if (!$post) {
+            return response()->json(['message' => "Not Found"], 404);
         }
-        if($request->user()->id != $post->user_id){
-            return response()->json([
-                "message"=> "Accès interdit!"
-            ], 403);
+
+        if ($post->user_id != $request->user()->id) {
+            return response()->json(["message" => "Forbidden"], 403);
         }
         
         return response()->json([
@@ -56,7 +53,7 @@ class PostController extends Controller
 
         return response()->json([
             $post
-        ], 200);
+        ], 201);
      }
 
      public function update(Request $request, $id)
@@ -88,7 +85,7 @@ class PostController extends Controller
         if(!$post){
             return response()->json([
                 "message"=> "Tache innexistante"
-            ], 403);
+            ], 404);
         }
         if($request->user()->id != $post->user_id){
             return response()->json([
